@@ -32,3 +32,4 @@ To use type a path to a directory followed by your choosen tags:
 # Features (or lack of :))
 - Retrieves all files from a specified directory (including subdirectories)
 - Filters by specified tags
+- Wordcloud of tags 
