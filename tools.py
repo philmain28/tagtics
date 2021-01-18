@@ -1,4 +1,8 @@
 import os
+import numpy as np
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
+
 
 class FileMetaData:
     '''
@@ -17,7 +21,7 @@ class FileMetaData:
                 TagTemp = file.split('.')[0] # we trim the file extension
                 TagTemp = TagTemp.split('#')[1:] # extract the tags from the files 
                 
-                self.FileList.append( # we store the complete information in a directory
+                self.FileList.append( # we store the complete information in a dictionary
                     {
                         'dirpath' : dirpath,
                         'FileName' : file,
@@ -37,7 +41,6 @@ class FileMetaData:
                         self.TagFreq.append(1)
                 i += 1
 
-
     def filter(self, mytags):
         '''
         These if statements are not so elegant but anyway
@@ -47,24 +50,43 @@ class FileMetaData:
         # at some point I will support more sophisticated tag logic but for now it is just AND
         
         if notags == 0: 
-            FilterIDs = range(len(self.FileList))
+            self.FilterIDs = range(len(self.FileList))
         else :
-            FilterIDs = set(self.TagLoc[ self.Tags.index(mytags[0])])
+            self.FilterIDs = set(self.TagLoc[ self.Tags.index(mytags[0])])
             if notags > 1:
                 for tag in mytags[1:]:
                     FilterIDsTemp = set(self.TagLoc[ self.Tags.index(tag) ])
-                    FilterIDS = FilterIDs & FilterIDsTemp
+                    self.FilterIDS = FilterIDs & FilterIDsTemp
 
         # takes a list of tags and find the  asociated files
-        FilteredFiles = []
-        for ID in list(FilterIDs):
+        self.FilteredFiles = []
+        for ID in list(self.FilterIDs):
             File = self.FileList[ID]
             #FilteredFiles.append(os.path.join(File['dirpath'], File['FileName']))
-            FilteredFiles.append(File['FileName']) 
+            self.FilteredFiles.append(File) 
             
-            
-        return sorted(FilteredFiles)
-            
+        return sorted([File['FileName'] for File in self.FilteredFiles]) 
+    
+    def PlotTagCloud(self):
+        #freq = [len(item) for item in self.TagLoc] 
+        words = ''
+        for Locs, Tag in zip(self.TagLoc, self.Tags):
+            for i in range(len(Locs)):
+                words = words + ' ' + Tag 
+
+        wordcloud = WordCloud(width = 800, height = 800, 
+                        #background_color ='white', 
+                        min_font_size = 10).generate(words)
+        
+        #plt.figure()
+        plt.imshow(wordcloud)
+        plt.show()
+        #plt.show(block=False) 
+
+
+
+        
+         
 
 
 

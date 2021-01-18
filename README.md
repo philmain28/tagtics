@@ -23,6 +23,12 @@ pip install -r dependencies.raw
 # Run it!
 python main.py
 
+To use type a path to a directory followed by your choosen tags:   
+![](Gui.png)
+
+
+
+
 # Features (or lack of :))
 - Retrieves all files from a specified directory (including subdirectories)
 - Filters by specified tags
