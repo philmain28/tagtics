@@ -15,10 +15,10 @@ apt-get install python3-venv
 
 # Installing with Python-vevn
 
-python3 -m venv venv
-source venv/bin/activate
-pip install --upgrade pip
-pip install -r dependencies.raw
+ - python3 -m venv venv
+ - source venv/bin/activate
+ - pip install --upgrade pip
+ - pip install -r dependencies.raw
 
 # Run it!
 python main.py
