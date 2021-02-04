@@ -23,7 +23,7 @@ apt-get install python3-venv
 # Run it!
 python main.py
 
-To use type a path to a directory followed by your choosen tags:   
+To use type a path to a directory followed by your chosen tags:   
 ![](Gui.png)
 
 
